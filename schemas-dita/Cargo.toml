@@ -7,10 +7,7 @@ rust-version.workspace = true
 license = "OASIS-IPR"  # Using original schema license
 authors.workspace = true
 repository.workspace = true
-include = ["src/**/*", "Cargo.toml", "build.rs"]
 
 [dependencies]
+include_dir = "0.7.4"
 schemas-core.workspace = true
-
-[build-dependencies]
-walkdir = "2"

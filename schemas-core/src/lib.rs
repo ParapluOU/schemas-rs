@@ -5,6 +5,8 @@
 
 use std::path::Path;
 
+pub use include_dir::{self, Dir, DirEntry, File};
+
 /// Error types for schema operations.
 #[derive(Debug, thiserror::Error)]
 pub enum SchemaError {
@@ -29,41 +31,10 @@ pub enum SchemaError {
     },
 }
 
-/// A single schema file with its relative path and content.
-#[derive(Debug, Clone, Copy)]
-pub struct SchemaFile {
-    /// Relative path within the schema bundle (e.g., "xsd1.2/base/xsd/basemap.xsd")
-    pub path: &'static str,
-    /// Raw file content as bytes
-    pub content: &'static [u8],
-}
-
-impl SchemaFile {
-    /// Create a new schema file entry.
-    pub const fn new(path: &'static str, content: &'static [u8]) -> Self {
-        Self { path, content }
-    }
-
-    /// Get the content as a UTF-8 string (if valid).
-    pub fn content_str(&self) -> Result<&'static str, std::str::Utf8Error> {
-        std::str::from_utf8(self.content)
-    }
-
-    /// Get the file extension (e.g., "xsd", "dtd").
-    pub fn extension(&self) -> Option<&str> {
-        Path::new(self.path).extension().and_then(|e| e.to_str())
-    }
-
-    /// Get just the file name without directory.
-    pub fn file_name(&self) -> Option<&str> {
-        Path::new(self.path).file_name().and_then(|n| n.to_str())
-    }
-}
-
 /// A bundle of schema files that can be accessed and extracted.
 ///
 /// All schema crates implement this trait to provide access to their
-/// statically embedded schema files.
+/// statically embedded schema files via `include_dir`.
 pub trait SchemaBundle {
     /// Human-readable name of the schema (e.g., "DITA 1.2", "NISO STS 1.0")
     const NAME: &'static str;
@@ -74,37 +45,37 @@ pub trait SchemaBundle {
     /// License identifier (e.g., "OASIS-IPR", "Apache-2.0")
     const LICENSE: &'static str;
 
-    /// Get all files in this bundle.
-    fn files() -> &'static [SchemaFile];
+    /// Get the embedded directory containing all schema files.
+    fn dir() -> &'static Dir<'static>;
 
-    /// Get the total number of files in the bundle.
+    /// Get the total number of files in the bundle (recursive).
     fn file_count() -> usize {
-        Self::files().len()
+        count_files(Self::dir())
     }
 
     /// Find a file by its exact relative path.
-    fn get_file(path: &str) -> Option<&'static SchemaFile> {
-        Self::files().iter().find(|f| f.path == path)
+    fn get_file(path: &str) -> Option<&'static File<'static>> {
+        Self::dir().get_file(path)
     }
 
-    /// Find all files matching a predicate.
-    fn find_files<F>(predicate: F) -> impl Iterator<Item = &'static SchemaFile>
-    where
-        F: Fn(&SchemaFile) -> bool,
-    {
-        Self::files().iter().filter(move |f| predicate(f))
+    /// Get all files recursively as an iterator.
+    fn files() -> impl Iterator<Item = &'static File<'static>> {
+        all_files(Self::dir()).into_iter()
     }
 
     /// Find all files with a specific extension (e.g., "xsd").
-    fn files_by_extension(ext: &str) -> impl Iterator<Item = &'static SchemaFile> {
-        Self::files()
-            .iter()
-            .filter(move |f| f.extension() == Some(ext))
+    fn files_by_extension(ext: &str) -> impl Iterator<Item = &'static File<'static>> {
+        Self::files().filter(move |f| {
+            f.path()
+                .extension()
+                .and_then(|e| e.to_str())
+                .is_some_and(|e| e == ext)
+        })
     }
 
     /// List all file paths in the bundle.
-    fn list_paths() -> impl Iterator<Item = &'static str> {
-        Self::files().iter().map(|f| f.path)
+    fn list_paths() -> impl Iterator<Item = &'static Path> {
+        Self::files().map(|f| f.path())
     }
 
     /// Write all schema files to the given base directory.
@@ -115,7 +86,7 @@ pub trait SchemaBundle {
         let mut count = 0;
 
         for file in Self::files() {
-            let full_path = base_path.join(file.path);
+            let full_path = base_path.join(file.path());
 
             // Create parent directories
             if let Some(parent) = full_path.parent() {
@@ -126,7 +97,7 @@ pub trait SchemaBundle {
             }
 
             // Write the file
-            std::fs::write(&full_path, file.content).map_err(|e| SchemaError::WriteError {
+            std::fs::write(&full_path, file.contents()).map_err(|e| SchemaError::WriteError {
                 path: full_path.display().to_string(),
                 source: e,
             })?;
@@ -139,11 +110,11 @@ pub trait SchemaBundle {
 
     /// Calculate total size in bytes of all schema files.
     fn total_size() -> usize {
-        Self::files().iter().map(|f| f.content.len()).sum()
+        Self::files().map(|f| f.contents().len()).sum()
     }
 }
 
-/// Extension trait for iterating over multiple schema bundles.
+/// Extension trait providing additional utilities.
 pub trait SchemaBundleExt: SchemaBundle {
     /// Get a summary of this bundle.
     fn summary() -> BundleSummary {
@@ -177,4 +148,28 @@ impl std::fmt::Display for BundleSummary {
             self.name, self.version, self.license, self.file_count, self.total_size
         )
     }
+}
+
+/// Recursively count files in a directory.
+fn count_files(dir: &'static Dir<'static>) -> usize {
+    let mut count = dir.files().count();
+    for subdir in dir.dirs() {
+        count += count_files(subdir);
+    }
+    count
+}
+
+/// Recursively collect all files in a directory.
+fn collect_files(dir: &'static Dir<'static>, out: &mut Vec<&'static File<'static>>) {
+    out.extend(dir.files());
+    for subdir in dir.dirs() {
+        collect_files(subdir, out);
+    }
+}
+
+/// Get all files recursively as a Vec.
+fn all_files(dir: &'static Dir<'static>) -> Vec<&'static File<'static>> {
+    let mut files = Vec::new();
+    collect_files(dir, &mut files);
+    files
 }

@@ -18,12 +18,12 @@
 //!
 //! // List all schema files
 //! for path in NisoSts::list_paths() {
-//!     println!("{}", path);
+//!     println!("{}", path.display());
 //! }
 //!
 //! // Find interchange schemas
-//! for file in NisoSts::find_files(|f| f.path.contains("interchange")) {
-//!     println!("{}", file.path);
+//! for file in NisoSts::interchange_files() {
+//!     println!("{}", file.path().display());
 //! }
 //! ```
 //!
@@ -32,10 +32,11 @@
 //! NISO STS schemas are made openly available for public use.
 //! See the LICENSE file for details.
 
-pub use schemas_core::{BundleSummary, SchemaBundle, SchemaBundleExt, SchemaError, SchemaFile};
+pub use schemas_core::{BundleSummary, Dir, File, SchemaBundle, SchemaBundleExt, SchemaError};
 
-// Include the generated schema files
-include!(concat!(env!("OUT_DIR"), "/generated_schemas.rs"));
+use include_dir::include_dir;
+
+static SCHEMA_DIR: Dir<'static> = include_dir!("$CARGO_MANIFEST_DIR/../niso/schemas");
 
 /// NISO STS Schema Bundle
 pub struct NisoSts;
@@ -45,25 +46,25 @@ impl SchemaBundle for NisoSts {
     const VERSION: &'static str = "1.0";
     const LICENSE: &'static str = "NISO";
 
-    fn files() -> &'static [SchemaFile] {
-        SCHEMA_FILES
+    fn dir() -> &'static Dir<'static> {
+        &SCHEMA_DIR
     }
 }
 
 impl NisoSts {
     /// Get interchange tag set schemas only.
-    pub fn interchange_files() -> impl Iterator<Item = &'static SchemaFile> {
-        Self::find_files(|f| f.path.contains("interchange"))
+    pub fn interchange_files() -> impl Iterator<Item = &'static File<'static>> {
+        Self::files().filter(|f| f.path().to_string_lossy().contains("interchange"))
     }
 
     /// Get extended tag set schemas only.
-    pub fn extended_files() -> impl Iterator<Item = &'static SchemaFile> {
-        Self::find_files(|f| f.path.contains("extended"))
+    pub fn extended_files() -> impl Iterator<Item = &'static File<'static>> {
+        Self::files().filter(|f| f.path().to_string_lossy().contains("extended"))
     }
 
     /// Get MathML schemas.
-    pub fn mathml_files() -> impl Iterator<Item = &'static SchemaFile> {
-        Self::find_files(|f| f.path.contains("mathml"))
+    pub fn mathml_files() -> impl Iterator<Item = &'static File<'static>> {
+        Self::files().filter(|f| f.path().to_string_lossy().contains("mathml"))
     }
 }
 

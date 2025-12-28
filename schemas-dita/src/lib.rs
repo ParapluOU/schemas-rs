@@ -11,17 +11,17 @@
 //!
 //! // List all schema files
 //! for path in Dita12::list_paths() {
-//!     println!("{}", path);
+//!     println!("{}", path.display());
 //! }
 //!
 //! // Get a specific file
 //! if let Some(file) = Dita12::get_file("xsd1.2/base/xsd/basemap.xsd") {
-//!     println!("Content: {} bytes", file.content.len());
+//!     println!("Content: {} bytes", file.contents().len());
 //! }
 //!
 //! // Find all XSD files
 //! for file in Dita12::files_by_extension("xsd") {
-//!     println!("{}: {} bytes", file.path, file.content.len());
+//!     println!("{}: {} bytes", file.path().display(), file.contents().len());
 //! }
 //! ```
 //!
@@ -30,10 +30,11 @@
 //! The DITA schemas are licensed under the OASIS IPR Policy.
 //! See the LICENSE file for details.
 
-pub use schemas_core::{BundleSummary, SchemaBundle, SchemaBundleExt, SchemaError, SchemaFile};
+pub use schemas_core::{BundleSummary, Dir, File, SchemaBundle, SchemaBundleExt, SchemaError};
 
-// Include the generated schema files
-include!(concat!(env!("OUT_DIR"), "/generated_schemas.rs"));
+use include_dir::include_dir;
+
+static SCHEMA_DIR: Dir<'static> = include_dir!("$CARGO_MANIFEST_DIR/../dita/schemas");
 
 /// DITA 1.2 Schema Bundle
 pub struct Dita12;
@@ -43,8 +44,8 @@ impl SchemaBundle for Dita12 {
     const VERSION: &'static str = "1.2";
     const LICENSE: &'static str = "OASIS-IPR";
 
-    fn files() -> &'static [SchemaFile] {
-        SCHEMA_FILES
+    fn dir() -> &'static Dir<'static> {
+        &SCHEMA_DIR
     }
 }
 
@@ -61,7 +62,7 @@ mod tests {
     fn test_list_paths() {
         let paths: Vec<_> = Dita12::list_paths().collect();
         assert!(!paths.is_empty());
-        assert!(paths.iter().any(|p| p.ends_with(".xsd")));
+        assert!(paths.iter().any(|p| p.extension().is_some_and(|e| e == "xsd")));
     }
 
     #[test]
@@ -69,7 +70,7 @@ mod tests {
         let xsd_files: Vec<_> = Dita12::files_by_extension("xsd").collect();
         assert!(!xsd_files.is_empty());
         for file in &xsd_files {
-            assert!(file.path.ends_with(".xsd"));
+            assert!(file.path().extension().is_some_and(|e| e == "xsd"));
         }
     }
 

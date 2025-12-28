@@ -11,7 +11,7 @@
 //!
 //! // List all schema files
 //! for path in DitaLce::list_paths() {
-//!     println!("{}", path);
+//!     println!("{}", path.display());
 //! }
 //! ```
 //!
@@ -20,10 +20,11 @@
 //! The DITA LCE schemas are licensed under the Apache License 2.0.
 //! Copyright 2016 Birgit Strackenbrock (XStructuring) and contributors.
 
-pub use schemas_core::{BundleSummary, SchemaBundle, SchemaBundleExt, SchemaError, SchemaFile};
+pub use schemas_core::{BundleSummary, Dir, File, SchemaBundle, SchemaBundleExt, SchemaError};
 
-// Include the generated schema files
-include!(concat!(env!("OUT_DIR"), "/generated_schemas.rs"));
+use include_dir::include_dir;
+
+static SCHEMA_DIR: Dir<'static> = include_dir!("$CARGO_MANIFEST_DIR/../dita-lce/schemas");
 
 /// DITA LCE Schema Bundle
 pub struct DitaLce;
@@ -33,8 +34,8 @@ impl SchemaBundle for DitaLce {
     const VERSION: &'static str = "3.0";
     const LICENSE: &'static str = "Apache-2.0";
 
-    fn files() -> &'static [SchemaFile] {
-        SCHEMA_FILES
+    fn dir() -> &'static Dir<'static> {
+        &SCHEMA_DIR
     }
 }
 

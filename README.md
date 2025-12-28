@@ -30,7 +30,7 @@ use schemas_core::SchemaBundle;
 
 // List all files
 for path in Dita12::list_paths() {
-    println!("{}", path);
+    println!("{}", path.display());
 }
 
 // Get file count and total size
@@ -47,13 +47,13 @@ use schemas_core::SchemaBundle;
 
 // Get a specific file
 if let Some(file) = Dita12::get_file("xsd1.2/base/xsd/basemap.xsd") {
-    let content = file.content_str().unwrap();
+    let content = std::str::from_utf8(file.contents()).unwrap();
     println!("Content: {}", &content[..200]);
 }
 
 // Find all XSD files
 for file in Dita12::files_by_extension("xsd") {
-    println!("{}: {} bytes", file.path, file.content.len());
+    println!("{}: {} bytes", file.path().display(), file.contents().len());
 }
 ```
 
@@ -68,6 +68,10 @@ use std::path::Path;
 let count = Dita12::write_to_directory(Path::new("./schemas")).unwrap();
 println!("Wrote {} files", count);
 ```
+
+## Implementation
+
+This crate uses [`include_dir`](https://crates.io/crates/include_dir) for zero-copy static embedding of schema files. No build.rs code generation required.
 
 ## License Compliance
 
