@@ -1,0 +1,84 @@
+# schemas-rs
+
+Rust crates providing statically embedded XML schemas for various standards.
+
+## Crates
+
+| Crate | Description | License |
+|-------|-------------|---------|
+| `schemas-core` | Core traits and types | MIT/Apache-2.0 |
+| `schemas-dita` | OASIS DITA 1.2 schemas | OASIS IPR |
+| `schemas-dita-lce` | DITA Learning Content Education | Apache-2.0 |
+| `schemas-niso-sts` | NISO Standards Tag Suite 1.0 | NISO (open use) |
+
+## Usage
+
+Add the desired schema crate to your `Cargo.toml`:
+
+```toml
+[dependencies]
+schemas-dita = "0.1"
+# or
+schemas-niso-sts = "0.1"
+```
+
+### List Schema Files
+
+```rust
+use schemas_dita::Dita12;
+use schemas_core::SchemaBundle;
+
+// List all files
+for path in Dita12::list_paths() {
+    println!("{}", path);
+}
+
+// Get file count and total size
+println!("{} files, {} bytes",
+    Dita12::file_count(),
+    Dita12::total_size());
+```
+
+### Access Schema Content
+
+```rust
+use schemas_dita::Dita12;
+use schemas_core::SchemaBundle;
+
+// Get a specific file
+if let Some(file) = Dita12::get_file("xsd1.2/base/xsd/basemap.xsd") {
+    let content = file.content_str().unwrap();
+    println!("Content: {}", &content[..200]);
+}
+
+// Find all XSD files
+for file in Dita12::files_by_extension("xsd") {
+    println!("{}: {} bytes", file.path, file.content.len());
+}
+```
+
+### Write Schemas to Disk
+
+```rust
+use schemas_dita::Dita12;
+use schemas_core::SchemaBundle;
+use std::path::Path;
+
+// Extract all schemas to a directory
+let count = Dita12::write_to_directory(Path::new("./schemas")).unwrap();
+println!("Wrote {} files", count);
+```
+
+## License Compliance
+
+The schema files retain their original licenses:
+
+- **DITA 1.2**: OASIS Intellectual Property Rights Policy
+- **DITA LCE**: Apache License 2.0 (Copyright Birgit Strackenbrock)
+- **NISO STS**: Open use encouraged by NISO
+
+The wrapper Rust code (`schemas-core`) is dual-licensed under MIT/Apache-2.0.
+
+## Not Included
+
+**S1000D** schemas are NOT included due to licensing restrictions that prohibit redistribution. Users needing S1000D schemas should download them directly from [users.s1000d.org](https://users.s1000d.org/).

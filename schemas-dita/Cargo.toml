@@ -1,0 +1,16 @@
+[package]
+name = "schemas-dita"
+description = "OASIS DITA 1.2 XML schemas - statically embedded"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license = "OASIS-IPR"  # Using original schema license
+authors.workspace = true
+repository.workspace = true
+include = ["src/**/*", "Cargo.toml", "build.rs"]
+
+[dependencies]
+schemas-core.workspace = true
+
+[build-dependencies]
+walkdir = "2"

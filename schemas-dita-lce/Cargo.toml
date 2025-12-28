@@ -1,0 +1,16 @@
+[package]
+name = "schemas-dita-lce"
+description = "DITA Learning Content Education (LCE) schemas - statically embedded"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license = "Apache-2.0"
+authors.workspace = true
+repository.workspace = true
+include = ["src/**/*", "Cargo.toml", "build.rs"]
+
+[dependencies]
+schemas-core.workspace = true
+
+[build-dependencies]
+walkdir = "2"

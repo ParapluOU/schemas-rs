@@ -1,0 +1,21 @@
+NISO Standards Tag Suite (NISO STS) License
+
+ANSI/NISO Z39.102-2017 Standards Tag Suite (STS)
+
+The NISO STS schemas are made openly available for public use. NISO STS is based
+on ANSI/NISO Z39.96 (JATS - Journal Article Tag Suite) and the ISO STS V1.1 model.
+
+These schemas are provided by the National Information Standards Organization (NISO)
+for the purpose of enabling interchange of tractable versions of standards documents.
+
+NISO encourages open use of these schemas. The schemas may be used, copied, and
+distributed without restriction, provided that this notice is preserved and
+attribution to NISO is maintained.
+
+For more information about NISO STS:
+- Standard: https://www.niso.org/publications/z39102-2017-sts
+- Supporting Materials: https://www.niso-sts.org/
+
+THE SCHEMAS ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT.
