@@ -40,6 +40,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "schemas"
+version = "0.1.0"
+dependencies = [
+ "schemas-akoma-ntoso",
+ "schemas-bits",
+ "schemas-core",
+ "schemas-dita",
+ "schemas-dita-lce",
+ "schemas-dita13",
+ "schemas-docbook",
+ "schemas-jats",
+ "schemas-niso-sts",
+ "schemas-spl",
+ "schemas-tei",
+]
+
+[[package]]
 name = "schemas-akoma-ntoso"
 version = "0.1.0"
 dependencies = [

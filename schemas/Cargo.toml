@@ -1,0 +1,38 @@
+[package]
+name = "schemas"
+description = "Statically embedded XML schemas for publishing standards (DITA, JATS, DocBook, TEI, SPL, etc.)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[features]
+default = []
+full = ["dita", "dita13", "dita-lce", "niso-sts", "jats", "bits", "docbook", "akoma-ntoso", "tei", "spl"]
+
+# Individual schema features
+dita = ["dep:schemas-dita"]
+dita13 = ["dep:schemas-dita13"]
+dita-lce = ["dep:schemas-dita-lce"]
+niso-sts = ["dep:schemas-niso-sts"]
+jats = ["dep:schemas-jats"]
+bits = ["dep:schemas-bits"]
+docbook = ["dep:schemas-docbook"]
+akoma-ntoso = ["dep:schemas-akoma-ntoso"]
+tei = ["dep:schemas-tei"]
+spl = ["dep:schemas-spl"]
+
+[dependencies]
+schemas-core.workspace = true
+schemas-dita = { workspace = true, optional = true }
+schemas-dita13 = { workspace = true, optional = true }
+schemas-dita-lce = { workspace = true, optional = true }
+schemas-niso-sts = { workspace = true, optional = true }
+schemas-jats = { workspace = true, optional = true }
+schemas-bits = { workspace = true, optional = true }
+schemas-docbook = { workspace = true, optional = true }
+schemas-akoma-ntoso = { workspace = true, optional = true }
+schemas-tei = { workspace = true, optional = true }
+schemas-spl = { workspace = true, optional = true }

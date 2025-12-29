@@ -12,6 +12,7 @@ members = [
     "schemas-akoma-ntoso",
     "schemas-tei",
     "schemas-spl",
+    "schemas",
 ]
 
 [workspace.package]
@@ -24,4 +25,14 @@ repository = "https://github.com/parapluou/schemas-rs"
 
 [workspace.dependencies]
 schemas-core = { path = "schemas-core" }
+schemas-dita = { path = "schemas-dita" }
+schemas-dita13 = { path = "schemas-dita13" }
+schemas-dita-lce = { path = "schemas-dita-lce" }
+schemas-niso-sts = { path = "schemas-niso-sts" }
+schemas-jats = { path = "schemas-jats" }
+schemas-bits = { path = "schemas-bits" }
+schemas-docbook = { path = "schemas-docbook" }
+schemas-akoma-ntoso = { path = "schemas-akoma-ntoso" }
+schemas-tei = { path = "schemas-tei" }
+schemas-spl = { path = "schemas-spl" }
 thiserror = "2"

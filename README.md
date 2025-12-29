@@ -17,6 +17,7 @@ Rust crates providing statically embedded XML schemas for various standards.
 | `schemas-akoma-ntoso` | Akoma Ntoso 3.0 (Legal Documents) | CC-BY-4.0 |
 | `schemas-tei` | TEI P5 (Text Encoding Initiative) | BSD-2-Clause |
 | `schemas-spl` | FDA SPL (Pharmaceutical Package Inserts) | BSD-3-Clause |
+| `schemas` | Umbrella crate (re-exports all with feature flags) | MIT/Apache-2.0 |
 
 ## Usage
 
@@ -24,10 +25,25 @@ Add the desired schema crate to your `Cargo.toml`:
 
 ```toml
 [dependencies]
+# Use the umbrella crate with feature flags
+schemas = { version = "0.1", features = ["dita13", "jats"] }
+
+# Or use individual crates directly
 schemas-dita = "0.1"
-# or
 schemas-niso-sts = "0.1"
 ```
+
+### Using the Umbrella Crate
+
+```rust
+use schemas::prelude::*;
+
+// All enabled schema types are available
+println!("{} DITA 1.3 files", Dita13::file_count());
+println!("{} JATS files", Jats14::file_count());
+```
+
+Available features: `dita`, `dita13`, `dita-lce`, `niso-sts`, `jats`, `bits`, `docbook`, `akoma-ntoso`, `tei`, `spl`, `full`
 
 ### List Schema Files
 
