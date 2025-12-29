@@ -10,6 +10,7 @@ members = [
     "schemas-docbook",
     "schemas-akoma-ntoso",
     "schemas-tei",
+    "schemas-spl",
 ]
 
 [workspace.package]

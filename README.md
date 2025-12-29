@@ -15,6 +15,7 @@ Rust crates providing statically embedded XML schemas for various standards.
 | `schemas-docbook` | DocBook 5.1 (RNG/Schematron) | BSD-2-Clause |
 | `schemas-akoma-ntoso` | Akoma Ntoso 3.0 (Legal Documents) | CC-BY-4.0 |
 | `schemas-tei` | TEI P5 (Text Encoding Initiative) | BSD-2-Clause |
+| `schemas-spl` | FDA SPL (Pharmaceutical Package Inserts) | BSD-3-Clause |
 
 ## Usage
 
@@ -90,6 +91,7 @@ The schema files retain their original licenses:
 - **DocBook 5.1**: BSD-2-Clause (OASIS DocBook TC)
 - **Akoma Ntoso 3.0**: CC-BY-4.0 (OASIS Open)
 - **TEI P5**: BSD-2-Clause (TEI Consortium)
+- **SPL**: BSD-3-Clause (HL7 / FDA)
 
 The wrapper Rust code (`schemas-core`) is dual-licensed under MIT/Apache-2.0.
 

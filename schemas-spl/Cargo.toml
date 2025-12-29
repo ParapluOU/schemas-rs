@@ -1,0 +1,13 @@
+[package]
+name = "schemas-spl"
+description = "FDA Structured Product Labeling (SPL) schemas for pharmaceutical package inserts - statically embedded"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license = "BSD-3-Clause"  # HL7 License
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+include_dir = "0.7.4"
+schemas-core.workspace = true

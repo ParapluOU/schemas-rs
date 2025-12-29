@@ -104,6 +104,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "schemas-spl"
+version = "0.1.0"
+dependencies = [
+ "include_dir",
+ "schemas-core",
+]
+
+[[package]]
 name = "schemas-tei"
 version = "0.1.0"
 dependencies = [
