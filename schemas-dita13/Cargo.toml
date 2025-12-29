@@ -1,0 +1,13 @@
+[package]
+name = "schemas-dita13"
+description = "OASIS DITA 1.3 schemas - statically embedded"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license = "Apache-2.0"
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+include_dir = "0.7.4"
+schemas-core.workspace = true

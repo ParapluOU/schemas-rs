@@ -80,6 +80,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "schemas-dita13"
+version = "0.1.0"
+dependencies = [
+ "include_dir",
+ "schemas-core",
+]
+
+[[package]]
 name = "schemas-docbook"
 version = "0.1.0"
 dependencies = [

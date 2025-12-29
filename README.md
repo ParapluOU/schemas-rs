@@ -8,6 +8,7 @@ Rust crates providing statically embedded XML schemas for various standards.
 |-------|-------------|---------|
 | `schemas-core` | Core traits and types | MIT/Apache-2.0 |
 | `schemas-dita` | OASIS DITA 1.2 schemas | OASIS IPR |
+| `schemas-dita13` | OASIS DITA 1.3 schemas | Apache-2.0 |
 | `schemas-dita-lce` | DITA Learning Content Education | Apache-2.0 |
 | `schemas-niso-sts` | NISO Standards Tag Suite 1.0 | NISO (open use) |
 | `schemas-jats` | JATS 1.4 (Journal Article Tag Suite) | Public Domain |
@@ -84,6 +85,7 @@ This crate uses [`include_dir`](https://crates.io/crates/include_dir) for zero-c
 The schema files retain their original licenses:
 
 - **DITA 1.2**: OASIS Intellectual Property Rights Policy
+- **DITA 1.3**: Apache License 2.0
 - **DITA LCE**: Apache License 2.0 (Copyright Birgit Strackenbrock)
 - **NISO STS**: Open use encouraged by NISO
 - **JATS 1.4**: Public Domain (NLM/NIH)

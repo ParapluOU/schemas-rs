@@ -3,6 +3,7 @@ resolver = "2"
 members = [
     "schemas-core",
     "schemas-dita",
+    "schemas-dita13",
     "schemas-dita-lce",
     "schemas-niso-sts",
     "schemas-jats",
