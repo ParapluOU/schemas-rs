@@ -1,0 +1,13 @@
+[package]
+name = "schemas-bits"
+description = "BITS (Book Interchange Tag Suite) 2.2 schemas - statically embedded"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license = "CC0-1.0"  # Public Domain (NLM/NIH)
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+include_dir = "0.7.4"
+schemas-core.workspace = true

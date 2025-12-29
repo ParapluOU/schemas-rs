@@ -1,0 +1,13 @@
+[package]
+name = "schemas-tei"
+description = "TEI (Text Encoding Initiative) P5 schemas - statically embedded"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license = "BSD-2-Clause"  # TEI Consortium
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+include_dir = "0.7.4"
+schemas-core.workspace = true

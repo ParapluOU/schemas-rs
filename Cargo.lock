@@ -40,6 +40,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "schemas-akoma-ntoso"
+version = "0.1.0"
+dependencies = [
+ "include_dir",
+ "schemas-core",
+]
+
+[[package]]
+name = "schemas-bits"
+version = "0.1.0"
+dependencies = [
+ "include_dir",
+ "schemas-core",
+]
+
+[[package]]
 name = "schemas-core"
 version = "0.1.0"
 dependencies = [
@@ -64,7 +80,31 @@ dependencies = [
 ]
 
 [[package]]
+name = "schemas-docbook"
+version = "0.1.0"
+dependencies = [
+ "include_dir",
+ "schemas-core",
+]
+
+[[package]]
+name = "schemas-jats"
+version = "0.1.0"
+dependencies = [
+ "include_dir",
+ "schemas-core",
+]
+
+[[package]]
 name = "schemas-niso-sts"
+version = "0.1.0"
+dependencies = [
+ "include_dir",
+ "schemas-core",
+]
+
+[[package]]
+name = "schemas-tei"
 version = "0.1.0"
 dependencies = [
  "include_dir",

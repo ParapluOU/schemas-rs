@@ -5,6 +5,11 @@ members = [
     "schemas-dita",
     "schemas-dita-lce",
     "schemas-niso-sts",
+    "schemas-jats",
+    "schemas-bits",
+    "schemas-docbook",
+    "schemas-akoma-ntoso",
+    "schemas-tei",
 ]
 
 [workspace.package]

@@ -1,0 +1,13 @@
+[package]
+name = "schemas-akoma-ntoso"
+description = "Akoma Ntoso 3.0 schemas for legal documents - statically embedded"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license = "CC-BY-4.0"  # OASIS Open License
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+include_dir = "0.7.4"
+schemas-core.workspace = true

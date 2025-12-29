@@ -10,6 +10,11 @@ Rust crates providing statically embedded XML schemas for various standards.
 | `schemas-dita` | OASIS DITA 1.2 schemas | OASIS IPR |
 | `schemas-dita-lce` | DITA Learning Content Education | Apache-2.0 |
 | `schemas-niso-sts` | NISO Standards Tag Suite 1.0 | NISO (open use) |
+| `schemas-jats` | JATS 1.4 (Journal Article Tag Suite) | Public Domain |
+| `schemas-bits` | BITS 2.2 (Book Interchange Tag Suite) | Public Domain |
+| `schemas-docbook` | DocBook 5.1 (RNG/Schematron) | BSD-2-Clause |
+| `schemas-akoma-ntoso` | Akoma Ntoso 3.0 (Legal Documents) | CC-BY-4.0 |
+| `schemas-tei` | TEI P5 (Text Encoding Initiative) | BSD-2-Clause |
 
 ## Usage
 
@@ -80,6 +85,11 @@ The schema files retain their original licenses:
 - **DITA 1.2**: OASIS Intellectual Property Rights Policy
 - **DITA LCE**: Apache License 2.0 (Copyright Birgit Strackenbrock)
 - **NISO STS**: Open use encouraged by NISO
+- **JATS 1.4**: Public Domain (NLM/NIH)
+- **BITS 2.2**: Public Domain (NLM/NIH)
+- **DocBook 5.1**: BSD-2-Clause (OASIS DocBook TC)
+- **Akoma Ntoso 3.0**: CC-BY-4.0 (OASIS Open)
+- **TEI P5**: BSD-2-Clause (TEI Consortium)
 
 The wrapper Rust code (`schemas-core`) is dual-licensed under MIT/Apache-2.0.
 
