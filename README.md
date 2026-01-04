@@ -116,3 +116,7 @@ The wrapper Rust code (`schemas-core`) is dual-licensed under MIT/Apache-2.0.
 ## Not Included
 
 **S1000D** schemas are NOT included due to licensing restrictions that prohibit redistribution. Users needing S1000D schemas should download them directly from [users.s1000d.org](https://users.s1000d.org/).
+
+## Resources
+
+- [Sonra XML Data Standards Library](https://sonra.io/library-xml-data-standards/) - Comprehensive catalog of XML data standards across industries (publishing, healthcare, legal, government, etc.)
